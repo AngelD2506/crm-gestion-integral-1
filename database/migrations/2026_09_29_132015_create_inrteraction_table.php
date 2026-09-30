@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inrteraction', function (Blueprint $table) {
+        Schema::create('interactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->enum('tipo_interaccion', ['Llamada', 'Visita', 'WhatsApp']);
+            $table->text('observaciones')->nullable();
+            $table->date('fecha_seguimiento');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inrteraction');
+        Schema::dropIfExists('interactions');
     }
 };
